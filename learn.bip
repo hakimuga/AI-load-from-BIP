@@ -1,0 +1,90 @@
+@cpp(src="ext-cpp/utilities.cpp,ext-cpp/trace_helper.cpp,ext-cpp/proba_helper.cpp",include="utilities.hpp,trace_helper.hpp,proba_helper.hpp")
+package learn
+	// Constant data definitions 
+    extern function float deepLearn(float , float , float , float )
+    extern function float getfield2(string, int , int )
+      extern function printf(string,float)
+      extern function printf(string)
+
+    port type sendFeatures (float f0, float f1, float f2, float f3)   
+    port type receiveResult (float R)   
+    port type silent ()
+    
+    connector type connector_1 (sendFeatures p1, sendFeatures p2)
+       define p1  p2
+       on p1 p2 down { p2.f0 = p1.f0; p2.f1 = p1.f1; p2.f2 = p1.f2; p2.f3 = p1.f3;  }
+    end
+
+    
+    connector type connector_2 (receiveResult p3, receiveResult p4)
+       define p3 p4
+       on p3 p4 down { p4.R= p3.R;  }
+ end
+
+    
+ atom type learningAtom ()
+        data float feature0=0
+        data float feature1=0   
+        data float feature2=0
+        data float result=0 
+        data float feature3=0
+        export port sendFeatures get_F(feature0, feature1, feature2, feature3)
+        export port receiveResult send_R(result)
+        port silent port01()
+         data int v =0
+        
+        place sl0, sl1, sl2
+      
+            initial to sl0
+            
+            on get_F from sl0 to sl1
+            
+            on port01 from sl1 to sl1 provided (v==0)
+               do { result = deepLearn(feature0, feature1, feature2, feature3); v=1;}
+            
+            on send_R from sl1 to sl0  provided (v==1)
+               do { v=0;}
+
+
+ end
+
+    
+atom type mainAtom ()
+        data float feature0=0
+        data float feature1=0
+        data float feature2=0
+        data float feature3=0
+        data float result=0
+        data int j =1
+        export port sendFeatures send_F(feature0, feature1, feature2, feature3)
+        export port receiveResult get_R(result)
+        port silent port01()
+        
+        place S0, S1, S2
+        initial to S0
+         do {
+                    feature0 = 2.5; 
+                    feature1 = 1.5;
+                    feature2 = 3.5;
+                    feature3 = 4.5;
+                }
+           
+        on send_F from S0 to S1 do { 	printf("Write features\n");  }
+            
+        on get_R from S1 to S2 do { 	printf("Read results\n");  }
+
+        on port01 from S2 to S0          do { 	printf("output = %f\n", result);  }
+
+ end
+
+    
+    compound type Compound ()
+    
+        component mainAtom C1()
+        component learningAtom C2()
+    
+        connector connector_1 Connector1 (C1.send_F, C2.get_F)
+        connector connector_2 Connector2 (C2.send_R, C1.get_R)
+    
+    end
+end
