@@ -11,7 +11,7 @@
 
 * 1- To generate the jar file (assembly) : build the Maven project "ModelLoading" with goal assembly:single.
 
-* 2-Put the jar file and  model.bin close to external c++ file, to use external Unix shell commands.
+* 2- Put the jar file and  model.bin close to external c++ file, to use external Unix shell commands.
 
 Enjoy.
 
