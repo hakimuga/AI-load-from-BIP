@@ -1,13 +1,15 @@
 # AI-load-from-BIP
 
-The maven project classification is used to train tour model with four features and one output
+* 1- The maven project <classification> is used to train the model with four features (f0, f1, f2, f4) and one output (q0)
 
-The maven project ModelLoading is used to generate a jar file responsible for prediction using model.bin 
+* 2- The maven project <ModelLoading> is used to generate a jar file in charge of prediction using <model.bin> generated from 1. 
 
-To generate the jar file (assembly) : build the model with goal assembly:single
+Important:
 
-Load the trained model  - > model.bin
+* 1- To generate the jar file (assembly) : build the model with goal assembly:single
 
-Download the jar file to predict values from ->  www-verimag.imag.fr/~baouyaa/model.jar
+* 2- Load the trained model  - > model.bin
 
-Load the  BIP model and run it.
+* 3-Put it close to external c++ file, to use external shell commands.
+
+Enjoy.
