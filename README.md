@@ -7,7 +7,7 @@
 * 2- The maven project "ModelLoading" is used to generate a jar file in charge of prediction using "model.bin" generated from 1. 
 
 
-**Important:
+**Important:**
 
 * 1- To generate the jar file (assembly) : build the Maven project "ModelLoading" with goal assembly:single.
 
