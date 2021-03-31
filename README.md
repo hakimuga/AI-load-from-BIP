@@ -1,8 +1,8 @@
 # AI-load-from-BIP
 
-* 1- The maven project <classification> is used to train the model with four features (f0, f1, f2, f4) and one output (q0)
+* 1- The maven project "classification" is used to train the model with four features (f0, f1, f2, f4) and one output (q0)
 
-* 2- The maven project <ModelLoading> is used to generate a jar file in charge of prediction using <model.bin> generated from 1. 
+* 2- The maven project "ModelLoading" is used to generate a jar file in charge of prediction using "model.bin" generated from 1. 
 
 Important:
 
